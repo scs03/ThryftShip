@@ -255,7 +255,7 @@ const ShippingForm: React.FC = () => {
 
           {formData.products.map((product, index) => (
             <div key={index} className="grid grid-cols-12 gap-2">
-              <div className="form-control mb-4 col-span-8">
+              <div className="form-control mb-4 col-span-6 md:col-span-8">
                 <label className="label">
                   <span className="label-text">Product {index + 1}</span>
                 </label>
@@ -276,7 +276,7 @@ const ShippingForm: React.FC = () => {
                   <span className="text-red-500">{errors[`product-${index}`]}</span>
                 )}
               </div>
-              <div className="form-control mb-4 col-span-2">
+              <div className="form-control mb-4 col-span-3 md:col-span-2">
                 <label className="label">
                   <span className="label-text">Shipping</span>
                 </label>
@@ -294,7 +294,7 @@ const ShippingForm: React.FC = () => {
                   <span className="text-red-500">{errors[`shippingStyle-${index}`]}</span>
                 )}
               </div>
-              <div className="form-control mb-4 col-span-2">
+              <div className="form-control mb-4 col-span-3 md:col-span-2">
                 <label className="label">
                   <span className="label-text">Quantity</span>
                 </label>
