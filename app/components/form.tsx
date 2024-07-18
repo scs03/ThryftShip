@@ -198,14 +198,21 @@ const ShippingForm: React.FC = () => {
   ];
 
   const products = [
-    { id: 1, name: 'Nike Dunks Black', price: 10.99, quantity: 5, image: './assets/dunks_black.png' },
-    { id: 2, name: 'Nike Dunks White', price: 19.99, quantity: 3, image: './assets/dunks_white.png' },
-    { id: 3, name: 'Nike Dunks Red', price: 5.99, quantity: 10, image: './assets/dunks_red.png' }
+    { id: 1, name: 'Orange Kendama', price: 10.99, quantity: 10, image: './assets/orangeKendama.jpg' },
+    { id: 2, name: 'Plain Kendama', price: 5.99, quantity: 10, image: './assets/plainKendama.jpg' },
+    { id: 3, name: 'Black Kendama', price: 12.99, quantity: 10, image: './assets/blackKendama.jpg' },
+    { id: 4, name: 'Green Kendama', price: 4.99, quantity: 10, image: './assets/greenKendama.jpg' },
+    { id: 5, name: 'Gray Kendama', price: 10.99, quantity: 10, image: './assets/orangeKendama.jpg' }
+
+
+
   ];
 
   const handleModalSubmit = () => {
     modalRef.current?.close();
-    router.push('/confirmation');
+    
+    const serializedData = encodeURIComponent(JSON.stringify(formData));
+    router.push(`/orderconfirmation?data=${serializedData}`);
   };
 
 
