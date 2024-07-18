@@ -218,6 +218,7 @@ const ShippingForm: React.FC = () => {
     modalRef.current?.close();
 
     const serializedData = encodeURIComponent(JSON.stringify(formData));
+    console.log(formData.products);
     router.push(`/orderconfirmation?data=${serializedData}`);
   };
 

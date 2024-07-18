@@ -21,6 +21,7 @@ type FormData = {
   city: string;
   state: string;
   zipCode: string;
+  shippingStyle: string;
 };
 
 const Summary = () => {
