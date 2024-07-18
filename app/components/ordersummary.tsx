@@ -80,7 +80,7 @@ const Summary = () => {
                       <p>{formData.addressLine1} {formData.city}</p>
                       <p>{formData.state}, {formData.zipCode}, USA</p>
                     </div>
-                    <p className='text-center text-sm text-gray-400'>{formData.email}</p>
+                    <p className='text-center text-xs md:text-sm text-gray-400'>{formData.email}</p>
                   </div>
                 </div>
               </div>
