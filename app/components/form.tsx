@@ -8,6 +8,7 @@ type Product = {
   quantity: string;
   image: string;
   price: number;
+  shippingStyle: string;
 };
 
 type FormData = {
@@ -33,7 +34,7 @@ const ShippingForm: React.FC = () => {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     instagramHandle: '',
-    products: [{ name: '', quantity: '1', image: '', price: 0 }],
+    products: [{ name: '', quantity: '1', image: '', price: 0, shippingStyle: 'Next Day' }],
     email: '',
     confirmEmail: '',
     firstName: '',
@@ -44,6 +45,7 @@ const ShippingForm: React.FC = () => {
     state: '',
     zipCode: ''
   });
+
   const [errors, setErrors] = useState<FormErrors>({
     email: '',
     confirmEmail: '',
@@ -52,7 +54,8 @@ const ShippingForm: React.FC = () => {
     addressLine1: '',
     city: '',
     state: '',
-    zipCode: ''
+    zipCode: '',
+    products: ''
   });
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -99,17 +102,12 @@ const ShippingForm: React.FC = () => {
       hasErrors = true;
     }
 
-    if (formData.products.length === 0 || formData.products.some(product => !product.name.trim())) {
-      formErrors.products = 'Please enter at least one product';
-      hasErrors = true;
-    } else {
-      formData.products.forEach((product, index) => {
-        if (!product.name.trim()) {
-          formErrors[`product-${index}`] = 'Product name is required';
-          hasErrors = true;
-        }
-      });
-    }
+    formData.products.forEach((product, index) => {
+      if (!product.name.trim()) {
+        formErrors[`product-${index}`] = 'Product is required';
+        hasErrors = true;
+      }
+    });
 
     if (hasErrors) {
       setErrors(formErrors);
@@ -138,13 +136,19 @@ const ShippingForm: React.FC = () => {
     if (index !== undefined) {
       setFormData(prevState => {
         const updatedProducts = [...prevState.products];
-        if (name.includes('product-')) {
+        if (name.startsWith('product-')) {
           const selectedProduct = products.find(product => product.name === value);
           updatedProducts[index] = {
             ...updatedProducts[index],
             name: value,
             price: selectedProduct ? selectedProduct.price : 0,
-            image: selectedProduct ? selectedProduct.image : ''
+            image: selectedProduct ? selectedProduct.image : '',
+            shippingStyle: 'Next Day'
+          };
+        } else if (name.startsWith('shippingStyle-')) {
+          updatedProducts[index] = {
+            ...updatedProducts[index],
+            shippingStyle: value
           };
         } else {
           updatedProducts[index] = {
@@ -168,7 +172,7 @@ const ShippingForm: React.FC = () => {
   const addMore = () => {
     setFormData(prevState => ({
       ...prevState,
-      products: [...prevState.products, { name: '', quantity: '1', price: 0, image: '' }]
+      products: [...prevState.products, { name: '', quantity: '1', price: 0, image: '', shippingStyle: '' }]
     }));
   };
 
@@ -202,15 +206,17 @@ const ShippingForm: React.FC = () => {
     { id: 2, name: 'Plain Kendama', price: 5.99, quantity: 10, image: './assets/plainKendama.jpg' },
     { id: 3, name: 'Black Kendama', price: 12.99, quantity: 10, image: './assets/blackKendama.jpg' },
     { id: 4, name: 'Green Kendama', price: 4.99, quantity: 10, image: './assets/greenKendama.jpg' },
-    { id: 5, name: 'Gray Kendama', price: 10.99, quantity: 10, image: './assets/orangeKendama.jpg' }
+    { id: 5, name: 'Gray Kendama', price: 10.99, quantity: 10, image: './assets/grayKendama.jpg' }
+  ];
 
-
-
+  const shippingStyles = [
+    'Next Day',
+    '3-5 Business Days'
   ];
 
   const handleModalSubmit = () => {
     modalRef.current?.close();
-    
+
     const serializedData = encodeURIComponent(JSON.stringify(formData));
     router.push(`/orderconfirmation?data=${serializedData}`);
   };
@@ -249,7 +255,7 @@ const ShippingForm: React.FC = () => {
 
           {formData.products.map((product, index) => (
             <div key={index} className="grid grid-cols-12 gap-2">
-              <div className="form-control mb-4 col-span-10">
+              <div className="form-control mb-4 col-span-8">
                 <label className="label">
                   <span className="label-text">Product {index + 1}</span>
                 </label>
@@ -272,6 +278,24 @@ const ShippingForm: React.FC = () => {
               </div>
               <div className="form-control mb-4 col-span-2">
                 <label className="label">
+                  <span className="label-text">Shipping</span>
+                </label>
+                <select
+                  name={`shippingStyle-${index}`}
+                  value={formData.products[index]?.shippingStyle || 'Next Day'}
+                  onChange={(e) => handleChange(e, index)}
+                  className="select select-bordered w-full"
+                >
+                  {shippingStyles.map((style, idx) => (
+                    <option key={idx} value={style}>{style}</option>
+                  ))}
+                </select>
+                {errors[`shippingStyle-${index}`] && (
+                  <span className="text-red-500">{errors[`shippingStyle-${index}`]}</span>
+                )}
+              </div>
+              <div className="form-control mb-4 col-span-2">
+                <label className="label">
                   <span className="label-text">Quantity</span>
                 </label>
                 <input
@@ -285,6 +309,8 @@ const ShippingForm: React.FC = () => {
               </div>
             </div>
           ))}
+
+
 
           <div className="grid grid-cols-6 gap-1 mb-4">
             <button type="button" className="text-primary col-span-1 text-xs" onClick={addMore}>Add More</button>
@@ -307,7 +333,7 @@ const ShippingForm: React.FC = () => {
                 <p className="text-red-500 text-sm mt-1 -mb-4">{errors.email}</p>
               )}
             </div>
-            <div className="form-control col-span-2 md:col-span-1mb-4">
+            <div className="form-control col-span-2 md:col-span-1 mb-4">
               <label className="label">
                 <span className="label-text">Confirm Email</span>
               </label>
@@ -460,12 +486,13 @@ const ShippingForm: React.FC = () => {
             <p>{formData.addressLine1} {formData.city} {formData.state} {formData.zipCode}</p>
             <p>{formData.email}</p>
              <h4 className="font-bold mt-4 place-items-center">Products:</h4>
-              {formData.products.map((product, index) => (
+             {formData.products.map((product, index) => (
                 <div className='grid grid-cols-3 gap-2 items-center mb-2' key={index}>
-                  <p className='col-span-2'> {product.name}: {product.quantity}</p>
+                  <p className='col-span-2'> {product.name}: {product.quantity} - {product.shippingStyle}</p>
                   <img src={product.image} alt={`Product ${index + 1}`} className="w-16" />
                 </div>
               ))}
+
               <h4 className="font-bold mt-4">Total Cost: ${calculateTotalCost()}</h4>
           </div>
           <div className="modal-action flex justify-center">

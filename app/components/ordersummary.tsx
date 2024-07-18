@@ -99,9 +99,9 @@ const Summary = () => {
             </div>
           </div>
         </div>
-        <div className="hidden md:flex md:opacity-100 fixed top-12 left-4 md:bottom-4 md:right-4 mt-6 pt-4 w-auto flex-col items-center justify-center z-50">
-            <img className="w-12" src="./assets/cubeLogo.svg" alt="Flying Package" />
-            <p className="text-gray-500">powered by Thryft Ship</p>
+        <div className=" bg-red-100 max-w-max max-h-max md:flex bottom-0 md:bottom-4 md:right-4 mt-6 pt-4 flex-col fixed items-center justify-center z-50">
+            <img className="w-1 md:w-12" src="./assets/cubeLogo.svg" alt="Flying Package" />
+            <p className="text-gray-500 text-xs md:text-sm">powered by Thryft Ship</p>
         </div>
 
 
