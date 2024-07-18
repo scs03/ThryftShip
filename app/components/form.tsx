@@ -3,12 +3,37 @@ import React, { useRef, useState } from 'react';
 import Router, { useRouter } from 'next/navigation';
 
 
+type Product = {
+  name: string;
+  quantity: string;
+  image: string;
+  price: number;
+};
+
+type FormData = {
+  instagramHandle: string;
+  products: Product[];
+  email: string;
+  confirmEmail: string;
+  firstName: string;
+  lastName: string;
+  addressLine1: string;
+  aptSuite: string;
+  city: string;
+  state: string;
+  zipCode: string;
+};
+
+type FormErrors = {
+  [key: string]: string;
+};
+
 const ShippingForm: React.FC = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
-  const router = useRouter(); // Initialize the router
-  const [formData, setFormData] = useState({
+  const router = useRouter();
+  const [formData, setFormData] = useState<FormData>({
     instagramHandle: '',
-    products: [{ name: '', quantity: '1', image: '', price: 0}], // Initialize with one product including image
+    products: [{ name: '', quantity: '1', image: '', price: 0 }],
     email: '',
     confirmEmail: '',
     firstName: '',
@@ -19,7 +44,7 @@ const ShippingForm: React.FC = () => {
     state: '',
     zipCode: ''
   });
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<FormErrors>({
     email: '',
     confirmEmail: '',
     firstName: '',
@@ -33,11 +58,9 @@ const ShippingForm: React.FC = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    // Validate all fields
-    const formErrors: any = {};
+    const formErrors: FormErrors = {};
     let hasErrors = false;
 
-    // Required field validation
     if (!formData.email.trim()) {
       formErrors.email = 'Email is required';
       hasErrors = true;
@@ -71,18 +94,15 @@ const ShippingForm: React.FC = () => {
       hasErrors = true;
     }
 
-    // Email matching validation
     if (formData.email.trim() !== formData.confirmEmail.trim()) {
       formErrors.confirmEmail = 'Email addresses do not match';
       hasErrors = true;
     }
 
-    // Product validation (at least one product)
     if (formData.products.length === 0 || formData.products.some(product => !product.name.trim())) {
       formErrors.products = 'Please enter at least one product';
       hasErrors = true;
     } else {
-      // Product name and quantity validation
       formData.products.forEach((product, index) => {
         if (!product.name.trim()) {
           formErrors[`product-${index}`] = 'Product name is required';
@@ -91,7 +111,6 @@ const ShippingForm: React.FC = () => {
       });
     }
 
-    // Set errors and prevent modal opening if there are errors
     if (hasErrors) {
       setErrors(formErrors);
       return;
@@ -109,7 +128,6 @@ const ShippingForm: React.FC = () => {
       });
     }
 
-    // If no errors, proceed to show modal
     if (modalRef.current) {
       modalRef.current.showModal();
     }
@@ -118,7 +136,6 @@ const ShippingForm: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, index?: number) => {
     const { name, value } = event.target;
     if (index !== undefined) {
-      // Update specific product's name, quantity, or price
       setFormData(prevState => {
         const updatedProducts = [...prevState.products];
         if (name.includes('product-')) {
@@ -126,8 +143,8 @@ const ShippingForm: React.FC = () => {
           updatedProducts[index] = {
             ...updatedProducts[index],
             name: value,
-            price: selectedProduct ? selectedProduct.price : 0, // Update price
-            image: selectedProduct ? selectedProduct.image : '' // Update image address
+            price: selectedProduct ? selectedProduct.price : 0,
+            image: selectedProduct ? selectedProduct.image : ''
           };
         } else {
           updatedProducts[index] = {
@@ -141,7 +158,6 @@ const ShippingForm: React.FC = () => {
         };
       });
     } else {
-      // Update other form fields
       setFormData(prevState => ({
         ...prevState,
         [name]: value
@@ -164,13 +180,13 @@ const ShippingForm: React.FC = () => {
       }));
     }
   };
+
   const calculateTotalCost = () => {
     return formData.products.reduce((total, product) => {
       return total + product.price * parseInt(product.quantity, 10);
-    }, 0).toFixed(2); // Ensure two decimal places for currency
+    }, 0).toFixed(2);
   };
-  
-  // List of states for the dropdown
+
   const states = [
     'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
     'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
@@ -189,7 +205,7 @@ const ShippingForm: React.FC = () => {
 
   const handleModalSubmit = () => {
     modalRef.current?.close();
-    router.push('/confirmation'); // Replace with your target route
+    router.push('/confirmation');
   };
 
 
@@ -232,34 +248,33 @@ const ShippingForm: React.FC = () => {
                   <span className="label-text">Product {index + 1}</span>
                 </label>
                 <select
-                  name={`product-${index}`} // Use a unique identifier for each product
-                  value={formData.products[index]?.name || ''} // Assuming `products` is an array in `formData`
-                  onChange={(e) => handleChange(e, index)} // Pass index to handleChange
+                  name={`product-${index}`}
+                  value={formData.products[index]?.name || ''}
+                  onChange={(e) => handleChange(e, index)}
                   className="select select-bordered w-full"
                 >
                   <option value="">Select Product</option>
                   {products.map((product) => (
                     <option key={product.id} value={product.name}>
-                      {product.name}
+                      {product.name} - ${product.price}
                     </option>
                   ))}
                 </select>
-                {errors && errors[`product-${index}`] && (
-                  <p className="text-red-500 text-sm mt-1 -mb-4">incorrect product selection</p>
+                {errors[`product-${index}`] && (
+                  <span className="text-red-500">{errors[`product-${index}`]}</span>
                 )}
               </div>
               <div className="form-control mb-4 col-span-2">
                 <label className="label">
-                  <span className="label-text">Qty</span>
+                  <span className="label-text">Quantity</span>
                 </label>
                 <input
                   type="number"
-                  name={`quantity-${index}`}
+                  name="quantity"
                   value={formData.products[index]?.quantity || ''}
                   onChange={(e) => handleChange(e, index)}
-                  placeholder="Quantity"
+                  placeholder="Qty"
                   className="input input-bordered w-full"
-                  min="1"
                 />
               </div>
             </div>
