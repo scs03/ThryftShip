@@ -217,7 +217,7 @@ const ShippingForm: React.FC = () => {
         <h1 className="relative text-2xl font-bold mt-8">
           Thank you for <br /> purchasing <br />from <a href="#" className="text-blue-600">[thryfter]</a>
         </h1>
-        <div className=" w-36 h-36 md:w-72 md:h-72 mx-auto ml-12 -mt-32 bg-center bg-no-repeat bg-contain" style={{ backgroundImage: "url('/assets/onlineshopping.svg')" }}></div>
+        <div className=" w-24 h-24 md:w-72 md:h-72 mx-auto ml-12 -mt-32 bg-center bg-no-repeat bg-contain" style={{ backgroundImage: "url('/assets/onlineshopping.svg')" }}></div>
       </div>
 
         <div className="mb-6 pb-4">
