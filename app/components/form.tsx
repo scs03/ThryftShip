@@ -292,7 +292,7 @@ const ShippingForm: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="form-control mb-4">
+            <div className="form-control col-span-2 md:col-span-1 mb-4">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
@@ -307,7 +307,7 @@ const ShippingForm: React.FC = () => {
                 <p className="text-red-500 text-sm mt-1 -mb-4">{errors.email}</p>
               )}
             </div>
-            <div className="form-control mb-4">
+            <div className="form-control col-span-2 md:col-span-1mb-4">
               <label className="label">
                 <span className="label-text">Confirm Email</span>
               </label>
