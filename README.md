@@ -1,6 +1,7 @@
 # Thryft Ship Project
 
 Works in Mobile and Desktop and in Device based dark or light mode
+
 [Deployed Website](https://thryft-ship.vercel.app/)
 
 
