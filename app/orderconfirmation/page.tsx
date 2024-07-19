@@ -7,8 +7,7 @@ const OrderConfirmation = () => {
   return (
     <div>
       <Navbar />
-
-      <Trying />  
+      <Summary />
     </div>
   )
 }
