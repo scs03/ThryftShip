@@ -16,7 +16,7 @@ This project aims at recreating a figma model of the Thryft Ship ordering page. 
 
 1. **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/scs03/ThryftShip.git)
+    git clone [https://github.com/scs03/ThryftShip.git]
     cd ThryftShip
     ```
 
