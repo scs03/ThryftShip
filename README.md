@@ -142,6 +142,6 @@ Thank You For Purchasing Page:
 
 **With more time/resources:**
 - include MagicUIDesign, FramerMotion, and GSAP to provide animations to help get the attention of users
-- create a databaset to hold user information
+- create a database to hold user information
 - have more components to split up existing components further more and increase readability
 - provide more accesibility to mobile devices with unique additions
