@@ -58,6 +58,15 @@ Reach me at:
 - [Tailwind CSS](https://tailwindcss.com/)
 - [DaisyUI](https://daisyui.com/)
 
+**Why DaisyUI?**
+- enhances Tailwind CSS
+- strong collection of pre-styled, customizable components
+- speeds up development process
+- allows for design consistency
+- screen size responsive
+- allows easy theme customization allowing for easy transitions to updated color themes
+
+
 ## Design Choices
 
 General:
