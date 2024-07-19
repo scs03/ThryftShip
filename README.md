@@ -1,5 +1,9 @@
 # Thryft Ship Project
 
+Works in Mobile and Desktop and in Device based dark or light mode
+[Deployed Website](https://thryft-ship.vercel.app/)
+
+
 This project aims at recreating a figma model of the Thryft Ship ordering page. Creating an ordering page that takes in the username, products intended to purchase, its quantity, and shipping style, and the address/email of the user. There is also a modal which confirms your order with an images of the products intended to order with the total cost of the products. It then takes you a order sumbitted page that provides a reciept which displays which products arrive at which time. Finally after it takes you to a final page to thank you for purchasing through this app.
 
 ## Table of Contents
