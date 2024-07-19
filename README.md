@@ -8,7 +8,7 @@ Works in Mobile and Desktop and in Device based dark or light mode
 This project aims at recreating a figma model of the Thryft Ship ordering page. Creating an ordering page that takes in the username, products intended to purchase, its quantity, and shipping style, and the address/email of the user. There is also a modal which confirms your order with an images of the products intended to order with the total cost of the products. It then takes you a order sumbitted page that provides a reciept which displays which products arrive at which time. Finally after it takes you to a final page to thank you for purchasing through this app.
 
 ## Table of Contents
-
+- [Introductions](#introduction)
 - [Installation](#installation)
 - [Setup](#setup)
 - [Running the Project](#running-the-project)
@@ -16,7 +16,16 @@ This project aims at recreating a figma model of the Thryft Ship ordering page. 
 - [Design Choice](#design-choices)
 - [Limitations](#limitations)
 
+## Introduction
 
+Who I Am:
+My name is Sriram Sendhil, I am a rising senior at UTD studying Computer Science. Since my transition from a pre-medicine neuroscience to Comp Sci I've worked hard on expanding my knowledge in all fields of CS. I worked as a research participant on a Computer Vision based research project and as a site developer for the San Antonio Hackathon. Since then I've bloomed to become a research lead (creating my own research project for students to work on) and as a project lead for a local non-profit regarding full stack web development. 
+
+
+Reach me at:
+[LinkedIn](https://www.linkedin.com/in/sriramsendhil/)
+[Email](sriramsendhil@gmail.com)
+[Instagram](https://www.instagram.com/slapsfirst/?hl=en)
 ## Installation
 
 1. **Clone the repository:**
@@ -28,63 +37,6 @@ This project aims at recreating a figma model of the Thryft Ship ordering page. 
 2. **Install dependencies:**
     ```bash
     npm install
-    ```
-
-## Setup
-
-1. **Create a `.env` file in the root directory and add any necessary environment variables:**
-    ```plaintext
-    NEXT_PUBLIC_API_URL=your-api-url
-    ```
-
-2. **Set up Tailwind CSS and DaisyUI:**
-
-    **Install Tailwind CSS:**
-    ```bash
-    npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
-    ```
-
-    **Install DaisyUI:**
-    ```bash
-    npm install daisyui
-    ```
-
-    **Create a `tailwind.config.js` file in the root directory and configure it:**
-    ```javascript
-    /** @type {import('tailwindcss').Config} */
-    module.exports = {
-      content: [
-        "./pages/**/*.{js,ts,jsx,tsx}",
-        "./components/**/*.{js,ts,jsx,tsx}",
-        "./app/**/*.{js,ts,jsx,tsx}",
-      ],
-      theme: {
-        extend: {},
-      },
-      plugins: [require("daisyui")],
-    };
-    ```
-
-    **Create a `postcss.config.js` file in the root directory and configure it:**
-    ```javascript
-    module.exports = {
-      plugins: {
-        tailwindcss: {},
-        autoprefixer: {},
-      },
-    };
-    ```
-
-    **Create a `globals.css` file in the `styles` directory and add the following content:**
-    ```css
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
-    ```
-
-    **Import the `globals.css` file in your `_app.js` file:**
-    ```javascript
-    import '../styles/globals.css';
     ```
 
 ## Running the Project
