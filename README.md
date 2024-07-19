@@ -24,7 +24,7 @@ My name is Sriram Sendhil, I am a rising senior at UTD studying Computer Science
 
 Reach me at:
 [LinkedIn](https://www.linkedin.com/in/sriramsendhil/)
-[Email](sriramsendhil@gmail.com)
+[Email](mailto:sriramsendhil@gmail.com)
 [Instagram](https://www.instagram.com/slapsfirst/?hl=en)
 ## Installation
 
