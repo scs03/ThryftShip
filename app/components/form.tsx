@@ -2,7 +2,32 @@
 import React, { useRef, useState } from 'react';
 import Router, { useRouter } from 'next/navigation';
 
+// DATA USED
+const states = [
+  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
+  'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
+  'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
+  'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
+  'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
+  'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+];
 
+const products = [
+  { id: 1, name: 'Orange Kendama', price: 10.99, quantity: 10, image: './assets/orangeKendama.jpg' },
+  { id: 2, name: 'Plain Kendama', price: 5.99, quantity: 10, image: './assets/plainKendama.jpg' },
+  { id: 3, name: 'Black Kendama', price: 12.99, quantity: 10, image: './assets/blackKendama.jpg' },
+  { id: 4, name: 'Green Kendama', price: 4.99, quantity: 10, image: './assets/greenKendama.jpg' },
+  { id: 5, name: 'Gray Kendama', price: 10.99, quantity: 10, image: './assets/grayKendama.jpg' }
+];
+
+const shippingStyles = [
+  'Next Day',
+  '3-5 Business Days'
+];
+
+
+// Declared type definitions for the form data and errors
 type Product = {
   name: string;
   quantity: string;
@@ -30,7 +55,7 @@ type FormErrors = {
 };
 
 const ShippingForm: React.FC = () => {
-  const modalRef = useRef<HTMLDialogElement>(null);
+  const modalRef = useRef<HTMLDialogElement>(null); // Ref for modal dialog
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     instagramHandle: '',
@@ -58,6 +83,7 @@ const ShippingForm: React.FC = () => {
     products: ''
   });
 
+  // Handles form submission and validation
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -110,7 +136,7 @@ const ShippingForm: React.FC = () => {
     });
 
     if (hasErrors) {
-      setErrors(formErrors);
+      setErrors(formErrors); // Set errors if validation fails
       return;
     } else {
       setErrors({
@@ -125,12 +151,12 @@ const ShippingForm: React.FC = () => {
         products: ''
       });
     }
-
+    // Show modal if no errors
     if (modalRef.current) {
       modalRef.current.showModal();
     }
   };
-
+  // Handles input changes for form and products
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, index?: number) => {
     const { name, value } = event.target;
     if (index !== undefined) {
@@ -168,14 +194,14 @@ const ShippingForm: React.FC = () => {
       }));
     }
   };
-
+  // Adds a new product entry to the form
   const addMore = () => {
     setFormData(prevState => ({
       ...prevState,
       products: [...prevState.products, { name: '', quantity: '1', price: 0, image: '', shippingStyle: '' }]
     }));
   };
-
+  // Deletes the last product entry from the form
   const deleteLast = () => {
     if (formData.products.length > 1) {
       setFormData(prevState => ({
@@ -185,35 +211,14 @@ const ShippingForm: React.FC = () => {
     }
   };
 
+  // Calculates the total cost of all products in the form
   const calculateTotalCost = () => {
     return formData.products.reduce((total, product) => {
       return total + product.price * parseInt(product.quantity, 10);
     }, 0).toFixed(2);
   };
 
-  const states = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
-    'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-    'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-    'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
-    'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
-    'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-    'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-  ];
-
-  const products = [
-    { id: 1, name: 'Orange Kendama', price: 10.99, quantity: 10, image: './assets/orangeKendama.jpg' },
-    { id: 2, name: 'Plain Kendama', price: 5.99, quantity: 10, image: './assets/plainKendama.jpg' },
-    { id: 3, name: 'Black Kendama', price: 12.99, quantity: 10, image: './assets/blackKendama.jpg' },
-    { id: 4, name: 'Green Kendama', price: 4.99, quantity: 10, image: './assets/greenKendama.jpg' },
-    { id: 5, name: 'Gray Kendama', price: 10.99, quantity: 10, image: './assets/grayKendama.jpg' }
-  ];
-
-  const shippingStyles = [
-    'Next Day',
-    '3-5 Business Days'
-  ];
-
+  // Handles modal submission and navigation
   const handleModalSubmit = () => {
     modalRef.current?.close();
 
@@ -306,6 +311,7 @@ const ShippingForm: React.FC = () => {
                   onChange={(e) => handleChange(e, index)}
                   placeholder="Qty"
                   className="input input-bordered w-full"
+                  min={1}
                 />
               </div>
             </div>
