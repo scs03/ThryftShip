@@ -230,7 +230,7 @@ const ShippingForm: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <div className="w-11/12 md:w-2/5 bg-white p-6 rounded-lg">
+      <div className="w-11/12 md:w-2/5 m-4 p-6 rounded-lg">
       <div className="relative mb-16 text-right ">
         <h1 className="relative text-2xl font-bold mt-8">
           Thank you for <br /> purchasing <br />from <a href="#" className="text-blue-600">[thryfter]</a>
